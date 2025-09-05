@@ -116,7 +116,10 @@ export class AuthController extends BaseController {
     } catch (error) {
       (request.server as any).log.error("Registration error:", error as Error);
       console.error("Detailed registration error:", error);
-      return this.sendError(reply, `Failed to register user: ${(error as Error).message}`);
+      return this.sendError(
+        reply,
+        `Failed to register user: ${(error as Error).message}`
+      );
     }
   }
 

@@ -1,7 +1,12 @@
 import bcrypt from "bcryptjs";
 import type { FastifyReply, FastifyRequest } from "fastify";
 import { BaseController } from "../../common/controllers/BaseController";
-import type { AuthResponse, ChangePasswordRequest, LoginRequest, RegisterRequest } from "../types";
+import type {
+  AuthResponse,
+  ChangePasswordRequest,
+  LoginRequest,
+  RegisterRequest,
+} from "../types";
 
 interface RegisterData {
   name: string;
@@ -23,7 +28,8 @@ interface ChangePasswordData {
 export class AuthController extends BaseController {
   async register(request: FastifyRequest, reply: FastifyReply) {
     try {
-      const { name, email, password, organization } = request.body as RegisterData;
+      const { name, email, password, organization } =
+        request.body as RegisterData;
 
       // Check if user already exists
       const existingUser = await this.prisma.user.findUnique({
@@ -31,32 +37,32 @@ export class AuthController extends BaseController {
       });
 
       if (existingUser) {
-        return this.sendError(reply, "User with this email already exists", 409);
+        return this.sendError(
+          reply,
+          "User with this email already exists",
+          409
+        );
       }
 
       // Hash password
       const hashedPassword = await bcrypt.hash(password, 12);
 
-      // Find or create organization
+      // Find existing organization by name first, then by domain
+      const domain = email.split("@")[1];
       let organizationRecord = await this.prisma.organization.findFirst({
-        where: { name: organization },
+        where: {
+          OR: [{ name: organization }, { domain }],
+        },
       });
 
+      // Create organization only if it doesn't exist
       if (!organizationRecord) {
-        // Try to find by domain first to avoid conflicts
-        const domain = email.split("@")[1];
-        organizationRecord = await this.prisma.organization.findFirst({
-          where: { domain },
+        organizationRecord = await this.prisma.organization.create({
+          data: {
+            name: organization,
+            domain,
+          },
         });
-
-        if (!organizationRecord) {
-          organizationRecord = await this.prisma.organization.create({
-            data: {
-              name: organization,
-              domain,
-            },
-          });
-        }
       }
 
       // Create user
@@ -278,7 +284,8 @@ export class AuthController extends BaseController {
 
   async changePassword(request: FastifyRequest, reply: FastifyReply) {
     try {
-      const { currentPassword, newPassword } = request.body as ChangePasswordData;
+      const { currentPassword, newPassword } =
+        request.body as ChangePasswordData;
       const { userId } = request.user as any;
 
       // Get user with password
@@ -295,9 +302,15 @@ export class AuthController extends BaseController {
       }
 
       // Verify current password
-      const isCurrentPasswordValid = await bcrypt.compare(currentPassword, user.password);
+      const isCurrentPasswordValid = await bcrypt.compare(
+        currentPassword,
+        user.password
+      );
       if (!isCurrentPasswordValid) {
-        return this.sendUnauthorizedError(reply, "Current password is incorrect");
+        return this.sendUnauthorizedError(
+          reply,
+          "Current password is incorrect"
+        );
       }
 
       // Hash new password
@@ -316,7 +329,10 @@ export class AuthController extends BaseController {
         message: "Password changed successfully",
       });
     } catch (error) {
-      (request.server as any).log.error("Change password error:", error as Error);
+      (request.server as any).log.error(
+        "Change password error:",
+        error as Error
+      );
       return this.sendError(reply, "Failed to change password");
     }
   }

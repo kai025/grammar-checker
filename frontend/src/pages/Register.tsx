@@ -190,6 +190,24 @@ const Register = () => {
               </Button>
             </div>
 
+            {/* Organization Field */}
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <FaUser className="h-5 w-5 text-gray-400" />
+              </div>
+              <input
+                id="organization"
+                name="organization"
+                type="text"
+                autoComplete="organization"
+                required
+                className="appearance-none relative block w-full px-3 py-2 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                placeholder="Organization name"
+                value={formData.organization}
+                onChange={handleChange}
+              />
+            </div>
+
             {/* Password Strength Indicator */}
             {formData.password && (
               <div className="space-y-2">

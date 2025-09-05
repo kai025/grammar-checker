@@ -1,18 +1,8 @@
 {
-  "version": 2,
-  "framework": "vite",
   "buildCommand": "yarn build",
   "outputDirectory": "dist",
   "installCommand": "yarn install",
   "devCommand": "yarn dev",
-  "env": {
-    "VITE_API_URL": "https://your-render-backend.onrender.com"
-  },
-  "functions": {
-    "app/api/**/*.js": {
-      "runtime": "nodejs18.x"
-    }
-  },
   "rewrites": [
     {
       "source": "/(.*)",

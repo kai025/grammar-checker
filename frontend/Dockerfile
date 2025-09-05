@@ -11,17 +11,20 @@ COPY yarn.lock ./
 # Install dependencies (including dev dependencies for build)
 RUN yarn install --production=false
 
+# Install TypeScript and Vite globally for build
+RUN yarn global add typescript vite
+
 # Copy source code
 COPY . .
 
 # Build the application
-RUN yarn build
+RUN tsc && vite build
 
 # Production stage with simple HTTP server
 FROM node:20-alpine
 
 # Install serve for static file serving
-RUN npm install -g serve
+RUN yarn global add serve
 
 # Copy built files from builder stage
 COPY --from=builder /app/dist /app/dist

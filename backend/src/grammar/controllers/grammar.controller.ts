@@ -1,9 +1,16 @@
 import type { FastifyRequest, FastifyReply } from "fastify";
-import type { GrammarAnalysisRequest } from "../types/grammar.types";
+import type {
+  GrammarAnalysisRequest,
+  GrammarAnalysisResult,
+} from "../types/grammar.types";
 import { GrammarService } from "../services/GrammarService";
+import { OpenAIGrammarService } from "../services/OpenAIGrammarService";
 
 export class GrammarController {
-  constructor(private grammarService: GrammarService) {}
+  constructor(
+    private grammarService: GrammarService,
+    private openAIService?: OpenAIGrammarService
+  ) {}
 
   async analyzeGrammar(request: FastifyRequest, reply: FastifyReply) {
     try {
@@ -27,13 +34,25 @@ export class GrammarController {
       // Get user ID from JWT if available
       const userId = (request as any).user?.userId;
 
+      // Check if user wants AI-powered analysis (from query param or header)
+      const useAI =
+        (request.query as any)?.ai === "true" ||
+        (request.headers as any)["x-use-ai"] === "true";
+
       const analysisRequest: GrammarAnalysisRequest = {
         text: text.trim(),
         language: language || "en",
         userId,
       };
 
-      const result = await this.grammarService.analyzeText(analysisRequest);
+      let result: GrammarAnalysisResult;
+      if (useAI && this.openAIService && process.env.OPENAI_API_KEY) {
+        // Use OpenAI for more advanced analysis
+        result = await this.openAIService.analyzeText(analysisRequest);
+      } else {
+        // Use LanguageTool for fast, rule-based analysis
+        result = await this.grammarService.analyzeText(analysisRequest);
+      }
 
       return reply.send(result);
     } catch (error) {

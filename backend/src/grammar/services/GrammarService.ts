@@ -117,16 +117,19 @@ export class GrammarService {
       const fd = new URLSearchParams();
       fd.append("text", text);
       fd.append("language", code);
-      
+
       // Enhanced grammar checking options
       fd.append("enabledOnly", "false"); // Check all rules, not just enabled ones
       fd.append("level", "picky"); // More thorough checking (picky > default)
-      fd.append("enabledCategories", "GRAMMAR,TYPOS,STYLE,PUNCTUATION,CASING,REDUNDANCY,SEMANTICS,MISC");
-      
+      fd.append(
+        "enabledCategories",
+        "GRAMMAR,TYPOS,STYLE,PUNCTUATION,CASING,REDUNDANCY,SEMANTICS,MISC"
+      );
+
       if (!opts?.omitHints) {
         if (preferredVariant) fd.append("preferredVariants", preferredVariant);
         if (motherTongue) fd.append("motherTongue", motherTongue);
-        
+
         // Additional quality improvements
         fd.append("allowIncompleteResults", "false"); // Wait for complete analysis
         fd.append("enableTempOffRules", "true"); // Include temporarily disabled rules

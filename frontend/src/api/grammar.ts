@@ -8,14 +8,18 @@ import type {
 export class GrammarApiService extends BaseApiService {
   async analyzeGrammar(
     text: string,
-    language = "en"
+    language = "en",
+    useAI = false
   ): Promise<GrammarAnalysisResult> {
     const request: GrammarAnalysisRequest = {
       text,
       language,
     };
 
-    return this.post<GrammarAnalysisResult>("/api/grammar/analyze", request);
+    const endpoint = useAI
+      ? "/api/grammar/analyze?ai=true"
+      : "/api/grammar/analyze";
+    return this.post<GrammarAnalysisResult>(endpoint, request);
   }
 
   async getAnalysisHistory(): Promise<GrammarHistoryItem[]> {
@@ -30,7 +34,7 @@ export class GrammarApiService extends BaseApiService {
 export const grammarApi = new GrammarApiService();
 
 // Export convenience functions for backward compatibility
-export const analyzeGrammar = (text: string, language = "en") =>
-  grammarApi.analyzeGrammar(text, language);
+export const analyzeGrammar = (text: string, language = "en", useAI = false) =>
+  grammarApi.analyzeGrammar(text, language, useAI);
 
 export const getAnalysisHistory = () => grammarApi.getAnalysisHistory();

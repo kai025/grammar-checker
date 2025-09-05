@@ -1,4 +1,11 @@
-import { useEffect, useMemo, useState, useRef, useCallback } from "react";
+import {
+  useEffect,
+  useMemo,
+  useState,
+  useRef,
+  useCallback,
+  useId,
+} from "react";
 import { useTranslation } from "react-i18next";
 import {
   FaCheck,
@@ -24,10 +31,12 @@ const GrammarChecker = () => {
     useState<GrammarAnalysisResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [language, setLanguage] = useState("en");
+  const [useAI, setUseAI] = useState(false);
   const [history, setHistory] = useState<GrammarHistoryItem[] | null>(null);
   const [isLoadingHistory, setIsLoadingHistory] = useState(false);
   const [showHistory, setShowHistory] = useState(true);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const languageSelectId = useId();
 
   const handleAnalyze = async () => {
     if (!text.trim()) {
@@ -39,7 +48,7 @@ const GrammarChecker = () => {
     setError(null);
 
     try {
-      const result = await analyzeGrammar(text, language);
+      const result = await analyzeGrammar(text, language, useAI);
       setAnalysisResult(result);
       // Refresh history after a successful analysis
       if (user) {
@@ -280,27 +289,49 @@ Error ${index + 1}:
                   {t("grammar.clear")}
                 </button>
               </div>
-              {/* Language selector */}
-              <div className="flex items-center gap-2 flex-shrink-0">
-                <label
-                  htmlFor="language"
-                  className="text-sm text-gray-600 hidden md:block"
-                >
-                  {t("grammar.language")}
-                </label>
-                <select
-                  id="language"
-                  className="h-12 px-4 border border-gray-300 rounded-full text-sm bg-white"
-                  value={language}
-                  onChange={(e) => setLanguage(e.target.value)}
-                  disabled={isAnalyzing}
-                >
-                  {languageOptions.map((opt) => (
-                    <option key={opt.code} value={opt.code}>
-                      {opt.label}
-                    </option>
-                  ))}
-                </select>
+              {/* Language selector and AI toggle */}
+              <div className="flex items-center gap-3 flex-shrink-0">
+                <div className="flex items-center gap-2">
+                  <label
+                    htmlFor={languageSelectId}
+                    className="text-sm text-gray-600 hidden md:block"
+                  >
+                    {t("grammar.language")}
+                  </label>
+                  <select
+                    id={languageSelectId}
+                    className="h-12 px-4 border border-gray-300 rounded-full text-sm bg-white"
+                    value={language}
+                    onChange={(e) => setLanguage(e.target.value)}
+                    disabled={isAnalyzing}
+                  >
+                    {languageOptions.map((opt) => (
+                      <option key={opt.code} value={opt.code}>
+                        {opt.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setUseAI(!useAI)}
+                    disabled={isAnalyzing}
+                    className={`flex items-center gap-2 h-12 px-4 border rounded-full transition-all duration-200 ${
+                      useAI
+                        ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white border-transparent shadow-md"
+                        : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
+                    } ${
+                      isAnalyzing
+                        ? "opacity-50 cursor-not-allowed"
+                        : "cursor-pointer"
+                    }`}
+                  >
+                    <span className="text-lg">🤖</span>
+                    <span className="hidden md:block font-medium">AI Mode</span>
+                  </button>
+                </div>
               </div>
 
               {analysisResult && (

@@ -1,10 +1,17 @@
 import type { FastifyInstance } from "fastify";
 import { GrammarController } from "../controllers/grammar.controller";
 import { GrammarService } from "../services/GrammarService";
+import { OpenAIGrammarService } from "../services/OpenAIGrammarService";
 
 export default async function grammarRoutes(fastify: FastifyInstance) {
   const grammarService = new GrammarService(fastify.prisma);
-  const grammarController = new GrammarController(grammarService);
+  const openAIService = process.env.OPENAI_API_KEY
+    ? new OpenAIGrammarService()
+    : undefined;
+  const grammarController = new GrammarController(
+    grammarService,
+    openAIService
+  );
 
   // Swagger schemas
   const analyzeGrammarSchema = {

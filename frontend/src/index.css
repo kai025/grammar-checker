@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+@theme {
+  /* primary */
+  --color-primary-50: #f0f2f7;
+  --color-primary-100: #e1e5ef;
+  --color-primary-200: #c3cbe0;
+  --color-primary-300: #a5b1d0;
+  --color-primary-400: #8797c1;
+  --color-primary-500: #05164d;
+  --color-primary-600: #04123e;
+  --color-primary-700: #030e2e;
+  --color-primary-800: #020a1f;
+  --color-primary-900: #01060f;
+
+  /* accent */
+  --color-accent-50: #fff5f7;
+  --color-accent-100: #ffeef2;
+  --color-accent-200: #ffdde6;
+  --color-accent-300: #ffccd9;
+  --color-accent-400: #ffbbcc;
+  --color-accent-500: #ffb6c1;
+  --color-accent-600: #ffa5b3;
+  --color-accent-700: #ff94a5;
+  --color-accent-800: #ff8397;
+  --color-accent-900: #ff7289;
+
+  /* gray */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+}
+
+@layer base {
+  body {
+    @apply bg-gray-50;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary-500 hover:bg-primary-600 text-white;
+  }
+
+  .btn-accent {
+    @apply border-2 border-accent-500 text-accent-500 hover:bg-accent-500 hover:text-white bg-transparent;
+  }
+
+  .text-primary {
+    @apply text-primary-500;
+  }
+
+  .bg-primary {
+    @apply bg-primary-500;
+  }
+
+  .border-primary {
+    @apply border-primary-500;
+  }
+
+  /* Trend colors */
+  .trend-up {
+    @apply text-green-600 bg-green-50 border-green-200;
+  }
+
+  .trend-down {
+    @apply text-red-600 bg-red-50 border-red-200;
+  }
+
+  .trend-neutral {
+    @apply text-gray-600 bg-gray-50 border-gray-200;
+  }
+
+  /* Chart stop colors for SVG gradients */
+  .stop-color-primary-500 {
+    stop-color: theme("colors.primary.500");
+  }
+
+  .stop-color-accent-500 {
+    stop-color: theme("colors.accent.500");
+  }
+
+  .stop-color-green-500 {
+    stop-color: theme("colors.green.500");
+  }
+
+  .stop-color-red-500 {
+    stop-color: theme("colors.red.500");
+  }
+}

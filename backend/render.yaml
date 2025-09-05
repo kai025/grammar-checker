@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: grammar-checker-backend
+    env: node
+    plan: starter
+    buildCommand: yarn install && yarn prisma generate && yarn build
+    startCommand: yarn prisma db push && yarn start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+      - key: DATABASE_URL
+        fromDatabase:
+          name: grammar-checker-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: CORS_ORIGIN
+        value: https://your-vercel-app.vercel.app,http://localhost:3000
+      - key: LANGUAGETOOL_API_URL
+        value: https://api.languagetool.org/v2/check
+
+databases:
+  - name: grammar-checker-db
+    databaseName: grammar_checker
+    user: grammar_user
+    plan: starter

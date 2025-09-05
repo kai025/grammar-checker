@@ -1,0 +1,21 @@
+// =============================================================================
+// GRAMMAR ANALYSIS MODELS
+// =============================================================================
+
+model GrammarAnalysis {
+  id             String   @id @default(cuid())
+  userId         String?  @map("user_id") // Nullable for anonymous users
+  text           String   @db.Text
+  language       String   @default("en")
+  totalErrors    Int      @map("total_errors")
+  processingTime Int      @map("processing_time") // in milliseconds
+  errors         Json     // Stored as JSON string
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  // Relations
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([createdAt])
+  @@map("grammar_analyses")
+}

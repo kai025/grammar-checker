@@ -1,0 +1,78 @@
+{
+  "app": {
+    "tagline": "智能语法检查"
+  },
+  "auth": {
+    "login": {
+      "title": "登录您的账户",
+      "subtitle": "或创建新账户",
+      "email": "电子邮箱",
+      "password": "密码",
+      "submit": "登录",
+      "loading": "登录中...",
+      "error": "登录失败"
+    },
+    "register": {
+      "title": "创建您的账户",
+      "subtitle": "或登录现有账户",
+      "name": "姓名",
+      "email": "电子邮箱",
+      "password": "密码",
+      "confirmPassword": "确认密码",
+      "submit": "创建账户",
+      "loading": "创建账户中...",
+      "error": "注册失败",
+      "passwordMismatch": "密码不匹配",
+      "passwordMatch": "✓ 密码匹配",
+      "passwordNotMatch": "✗ 密码不匹配"
+    },
+    "errors": {
+      "userExists": "用户已存在",
+      "invalidCredentials": "无效的邮箱或密码"
+    },
+    "logout": "退出登录"
+  },
+  "grammar": {
+    "title": "语法检查器",
+    "subtitle": "使用AI驱动的语法分析改善您的写作",
+    "checkGrammar": "检查语法",
+    "analyzing": "分析中...",
+    "clear": "清除",
+    "downloadReport": "下载报告",
+    "noErrors": "太好了！没有发现语法错误。",
+    "errorsFound": "发现{{count}}个潜在问题",
+    "errorsFound_plural": "发现{{count}}个潜在问题",
+    "textWithErrors": "标记错误的文本",
+    "clickToJump": "点击高亮的错误跳转到文本区域中的位置",
+    "errorDetails": "错误详情",
+    "suggestions": "建议：",
+    "found": "发现：",
+    "enterText": "在此输入文本以检查语法错误...",
+    "charactersCount": "{{count}} 个字符",
+    "summary": "摘要",
+    "noResults": "输入文本并点击\"检查语法\"查看结果",
+    "history": "分析历史",
+    "analytics": "分析统计",
+    "yourText": "您的文本",
+    "analysisResults": "分析结果",
+    "language": "语言",
+    "loginToSeeHistory": "登录以查看历史记录",
+    "noHistory": "暂无历史记录",
+    "showHistory": "显示历史",
+    "hideHistory": "隐藏历史"
+  },
+  "common": {
+    "loading": "加载中...",
+    "error": "发生错误",
+    "save": "保存",
+    "cancel": "取消",
+    "edit": "编辑",
+    "delete": "删除",
+    "back": "返回",
+    "next": "下一步",
+    "previous": "上一步",
+    "retry": "重试",
+    "export": "导出",
+    "view": "查看"
+  }
+}

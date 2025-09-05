@@ -1,0 +1,13 @@
+enum UserRole {
+  ADMIN
+  USER
+  VIEWER
+}
+
+enum Status {
+  PENDING
+  COMPLETED
+  FAILED
+  CANCELLED
+  ERROR
+}

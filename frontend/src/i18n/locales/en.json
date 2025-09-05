@@ -1,0 +1,92 @@
+{
+  "app": {
+    "tagline": "Intelligent Grammar Checking"
+  },
+  "auth": {
+    "login": {
+      "title": "Sign in to your account",
+      "subtitle": "Or create a new account",
+      "email": "Email address",
+      "password": "Password",
+      "submit": "Sign in",
+      "loading": "Signing in...",
+      "error": "Login failed"
+    },
+    "register": {
+      "title": "Create your account",
+      "subtitle": "Or sign in to your existing account",
+      "name": "Full name",
+      "email": "Email address",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "submit": "Create account",
+      "loading": "Creating account...",
+      "error": "Registration failed",
+      "passwordMismatch": "Passwords do not match",
+      "passwordMatch": "✓ Passwords match",
+      "passwordNotMatch": "✗ Passwords do not match",
+      "passwordRequirements": {
+        "minLength": "Password must be at least 8 characters long",
+        "uppercase": "Password must contain at least one uppercase letter",
+        "lowercase": "Password must contain at least one lowercase letter",
+        "number": "Password must contain at least one number",
+        "special": "Password must contain at least one special character"
+      },
+      "strength": {
+        "veryWeak": "Very Weak",
+        "weak": "Weak",
+        "fair": "Fair",
+        "good": "Good",
+        "strong": "Strong"
+      }
+    },
+    "errors": {
+      "userExists": "User already exists",
+      "invalidCredentials": "Invalid email or password"
+    },
+    "logout": "Log Out"
+  },
+  "grammar": {
+    "title": "Grammar Checker",
+    "subtitle": "Improve your writing with AI-powered grammar analysis",
+    "checkGrammar": "Check Grammar",
+    "analyzing": "Analyzing...",
+    "clear": "Clear",
+    "downloadReport": "Download Report",
+    "noErrors": "Great! No grammar errors found.",
+    "errorsFound": "Found {{count}} potential issue",
+    "errorsFound_plural": "Found {{count}} potential issues",
+    "textWithErrors": "Text with Errors Highlighted",
+    "clickToJump": "Click on highlighted errors to jump to them in the text area",
+    "errorDetails": "Error Details",
+    "suggestions": "Suggestions:",
+    "found": "Found:",
+    "enterText": "Enter your text here to check for grammar mistakes...",
+    "charactersCount": "{{count}} characters",
+    "summary": "Summary",
+    "noResults": "Enter text and click \"Check Grammar\" to see results",
+    "history": "Analysis History",
+    "analytics": "Analytics",
+    "yourText": "Your Text",
+    "analysisResults": "Analysis Results",
+    "language": "Language",
+    "loginToSeeHistory": "Log in to see your history",
+    "noHistory": "No history yet",
+    "showHistory": "Show History",
+    "hideHistory": "Hide History"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "retry": "Retry",
+    "export": "Export",
+    "view": "View"
+  }
+}

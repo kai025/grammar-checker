@@ -1,0 +1,78 @@
+{
+  "app": {
+    "tagline": "Intelligente Grammatikprüfung"
+  },
+  "auth": {
+    "login": {
+      "title": "Bei Ihrem Konto anmelden",
+      "subtitle": "Oder ein neues Konto erstellen",
+      "email": "E-Mail-Adresse",
+      "password": "Passwort",
+      "submit": "Anmelden",
+      "loading": "Anmeldung läuft...",
+      "error": "Anmeldung fehlgeschlagen"
+    },
+    "register": {
+      "title": "Konto erstellen",
+      "subtitle": "Oder bei bestehendem Konto anmelden",
+      "name": "Vollständiger Name",
+      "email": "E-Mail-Adresse",
+      "password": "Passwort",
+      "confirmPassword": "Passwort bestätigen",
+      "submit": "Konto erstellen",
+      "loading": "Konto wird erstellt...",
+      "error": "Registrierung fehlgeschlagen",
+      "passwordMismatch": "Passwörter stimmen nicht überein",
+      "passwordMatch": "✓ Passwörter stimmen überein",
+      "passwordNotMatch": "✗ Passwörter stimmen nicht überein"
+    },
+    "errors": {
+      "userExists": "Benutzer existiert bereits",
+      "invalidCredentials": "Ungültige E-Mail oder Passwort"
+    },
+    "logout": "Abmelden"
+  },
+  "grammar": {
+    "title": "Grammatikprüfung",
+    "subtitle": "Verbessern Sie Ihr Schreiben mit KI-gestützter Grammatikanalyse",
+    "checkGrammar": "Grammatik prüfen",
+    "analyzing": "Analysiere...",
+    "clear": "Löschen",
+    "downloadReport": "Bericht herunterladen",
+    "noErrors": "Großartig! Keine Grammatikfehler gefunden.",
+    "errorsFound": "{{count}} potenzielles Problem gefunden",
+    "errorsFound_plural": "{{count}} potenzielle Probleme gefunden",
+    "textWithErrors": "Text mit hervorgehobenen Fehlern",
+    "clickToJump": "Klicken Sie auf hervorgehobene Fehler, um zu ihnen zu springen",
+    "errorDetails": "Fehlerdetails",
+    "suggestions": "Vorschläge:",
+    "found": "Gefunden:",
+    "enterText": "Geben Sie hier Ihren Text ein, um ihn auf Grammatikfehler zu überprüfen...",
+    "charactersCount": "{{count}} Zeichen",
+    "summary": "Zusammenfassung",
+    "noResults": "Text eingeben und \"Grammatik prüfen\" klicken, um Ergebnisse zu sehen",
+    "history": "Analyse-Verlauf",
+    "analytics": "Analytik",
+    "yourText": "Ihr Text",
+    "analysisResults": "Analyse-Ergebnisse",
+    "language": "Sprache",
+    "loginToSeeHistory": "Melden Sie sich an, um Ihren Verlauf zu sehen",
+    "noHistory": "Noch kein Verlauf",
+    "showHistory": "Verlauf anzeigen",
+    "hideHistory": "Verlauf ausblenden"
+  },
+  "common": {
+    "loading": "Lädt...",
+    "error": "Ein Fehler ist aufgetreten",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "previous": "Vorherige",
+    "retry": "Wiederholen",
+    "export": "Exportieren",
+    "view": "Anzeigen"
+  }
+}

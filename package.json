@@ -1,0 +1,28 @@
+{
+  "name": "grammar-checker-monorepo",
+  "version": "1.0.0",
+  "description": "Grammar Checker - Intelligent grammar checking application",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "yarn workspace frontend dev & yarn workspace backend dev",
+    "build": "yarn workspace frontend build && yarn workspace backend build",
+    "start": "yarn workspace frontend start & yarn workspace backend start",
+    "lint": "yarn workspace frontend lint && yarn workspace backend lint",
+    "format": "yarn workspace frontend format",
+    "setup": "./setup-grammar-checker.sh",
+    "docker:start": "docker-compose -f docker-compose.grammar.yml up --build"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.2.0",
+    "typescript": "^5.4.2"
+  },
+  "engines": {
+    "node": ">=22.x",
+    "yarn": ">=1.22.0"
+  },
+  "packageManager": "yarn@1.22.22"
+}

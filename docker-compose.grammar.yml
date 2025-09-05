@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: grammar-checker-db
+    environment:
+      POSTGRES_DB: grammar_checker
+      POSTGRES_USER: grammar_user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U grammar_user -d grammar_checker"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: grammar-checker-backend
+    environment:
+      DATABASE_URL: "postgresql://grammar_user:password@postgres:5432/grammar_checker"
+      JWT_SECRET: "your-super-secret-jwt-key-change-this-in-production"
+      JWT_EXPIRES_IN: "7d"
+      PORT: 3001
+      NODE_ENV: production
+      CORS_ORIGIN: "http://localhost:3000,https://yourdomain.com"
+      LANGUAGETOOL_API_URL: "https://api.languagetool.org/v2/check"
+    ports:
+      - "3001:3001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    command: >
+      sh -c "
+        yarn prisma db push --accept-data-loss &&
+        yarn start
+      "
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: grammar-checker-frontend
+    environment:
+      VITE_API_URL: "http://localhost:3001"
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:

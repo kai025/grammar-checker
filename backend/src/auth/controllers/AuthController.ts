@@ -43,12 +43,20 @@ export class AuthController extends BaseController {
       });
 
       if (!organizationRecord) {
-        organizationRecord = await this.prisma.organization.create({
-          data: {
-            name: organization,
-            domain: email.split("@")[1],
-          },
+        // Try to find by domain first to avoid conflicts
+        const domain = email.split("@")[1];
+        organizationRecord = await this.prisma.organization.findFirst({
+          where: { domain },
         });
+
+        if (!organizationRecord) {
+          organizationRecord = await this.prisma.organization.create({
+            data: {
+              name: organization,
+              domain,
+            },
+          });
+        }
       }
 
       // Create user

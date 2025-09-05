@@ -2,7 +2,14 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { useTranslation } from "react-i18next";
-import { FaEnvelope, FaLock, FaUser, FaUserPlus, FaEye, FaEyeSlash } from "react-icons/fa";
+import {
+  FaEnvelope,
+  FaLock,
+  FaUser,
+  FaUserPlus,
+  FaEye,
+  FaEyeSlash,
+} from "react-icons/fa";
 import Button from "@/components/Button";
 
 const Register = () => {
@@ -11,6 +18,7 @@ const Register = () => {
     password: "",
     confirmPassword: "",
     name: "",
+    organization: "Demo Organization", // Auto-filled default
   });
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -64,8 +72,9 @@ const Register = () => {
         email: formData.email,
         password: formData.password,
         name: formData.name,
+        organization: formData.organization,
       });
-      navigate("/pnl");
+      navigate("/");
     } catch (err) {
       setError(err instanceof Error ? err.message : t("auth.register.error"));
     } finally {
@@ -103,7 +112,10 @@ const Register = () => {
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             {t("auth.register.subtitle").split("Or")[0]}{" "}
-            <Link to="/login" className="font-medium text-[#05164d] hover:text-[#0a2a7a]">
+            <Link
+              to="/login"
+              className="font-medium text-[#05164d] hover:text-[#0a2a7a]"
+            >
               {t("auth.register.subtitle").split("Or")[1]}
             </Link>
           </p>
@@ -212,7 +224,8 @@ const Register = () => {
                 autoComplete="new-password"
                 required
                 className={`appearance-none relative block w-full px-3 py-2 pl-10 pr-10 border rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm ${
-                  formData.confirmPassword && formData.password !== formData.confirmPassword
+                  formData.confirmPassword &&
+                  formData.password !== formData.confirmPassword
                     ? "border-red-300 placeholder-red-500 text-red-900"
                     : "border-gray-300 placeholder-gray-500 text-gray-900"
                 }`}
@@ -240,9 +253,13 @@ const Register = () => {
             {formData.confirmPassword && (
               <div className="text-sm">
                 {formData.password === formData.confirmPassword ? (
-                  <p className="text-green-600">{t("auth.register.passwordMatch")}</p>
+                  <p className="text-green-600">
+                    {t("auth.register.passwordMatch")}
+                  </p>
                 ) : (
-                  <p className="text-red-600">{t("auth.register.passwordNotMatch")}</p>
+                  <p className="text-red-600">
+                    {t("auth.register.passwordNotMatch")}
+                  </p>
                 )}
               </div>
             )}
@@ -261,7 +278,9 @@ const Register = () => {
               size="lg"
               className="w-full bg-primary-500 hover:bg-primary-600 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isLoading ? t("auth.register.loading") : t("auth.register.submit")}
+              {isLoading
+                ? t("auth.register.loading")
+                : t("auth.register.submit")}
             </Button>
           </div>
         </form>

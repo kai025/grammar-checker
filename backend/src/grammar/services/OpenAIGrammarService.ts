@@ -39,7 +39,6 @@ export class OpenAIGrammarService {
         ],
         temperature: 0.1,
         max_tokens: 2000,
-        response_format: { type: "json_object" },
       });
 
       const response = completion.choices[0]?.message?.content;
@@ -47,7 +46,21 @@ export class OpenAIGrammarService {
         throw new Error("No response from OpenAI");
       }
 
-      const analysis = JSON.parse(response);
+      // Clean the response to extract JSON
+      let cleanResponse = response.trim();
+
+      // Remove any markdown code blocks if present
+      if (cleanResponse.startsWith("```json")) {
+        cleanResponse = cleanResponse
+          .replace(/^```json\s*/, "")
+          .replace(/\s*```$/, "");
+      } else if (cleanResponse.startsWith("```")) {
+        cleanResponse = cleanResponse
+          .replace(/^```\s*/, "")
+          .replace(/\s*```$/, "");
+      }
+
+      const analysis = JSON.parse(cleanResponse);
       const processingTime = Date.now() - startTime;
 
       // Transform OpenAI response to our standard format
@@ -93,14 +106,14 @@ export class OpenAIGrammarService {
   }
 
   private buildGrammarPrompt(text: string, language: string): string {
-    return `Please analyze the following text for grammar, spelling, style, and punctuation errors in ${
+    return `You are a grammar checker. Analyze the following text for grammar, spelling, style, and punctuation errors in ${
       language === "en" ? "English" : language
     }.
 
 Text to analyze:
 "${text}"
 
-Return a JSON response with this exact structure:
+IMPORTANT: You must respond with ONLY valid JSON. Do not include any text before or after the JSON. Use this exact structure:
 {
   "errors": [
     {

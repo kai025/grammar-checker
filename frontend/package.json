@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "yarn exec vite build",
     "lint": "eslint .",
     "format": "biome format --write .",
     "format:check": "biome format .",
